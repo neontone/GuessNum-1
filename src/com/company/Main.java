@@ -35,8 +35,7 @@ public class Main {
                 System.out.println("Looser!");
             }
 
-            System.out.println("Do you want to play again? (y/n)");
-            answer = scan.next();
+            answer = askYesNo("Do you want to play again? (y/n)");
 
         } while (answer.equalsIgnoreCase("y"));
 
@@ -51,6 +50,18 @@ public class Main {
                 return answer;
             }
             System.out.printf("Please enter number from %d to %d\n", min, max);
+        }
+    }
+
+    static String askYesNo(String msg) {
+        while (true) {
+            System.out.println(msg);
+            String answer = scan.next();
+            if (answer.equalsIgnoreCase("y")
+                    || answer.equalsIgnoreCase("n")) {
+                return answer;
+            }
+            System.out.println("Enter 'y' or 'n'");
         }
     }
 }
