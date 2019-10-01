@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -41,10 +42,15 @@ public class Main {
 
     static int askInt(String msg, int min, int max) {
         while (true) {
-            System.out.println(msg);
-            int answer = scan.nextInt();
-            if (answer >= min && answer <= max) {
-                return answer;
+            try {
+                System.out.println(msg);
+                int answer = scan.nextInt();
+                if (answer >= min && answer <= max) {
+                    return answer;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("It isn't a number!");
+                scan.next();
             }
             System.out.printf("Please enter number from %d to %d\n", min, max);
         }
