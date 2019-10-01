@@ -9,7 +9,6 @@ public class Main {
     static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
-        String answer;
 
         do {
             int myNum = rand.nextInt(100) + 1;
@@ -35,9 +34,7 @@ public class Main {
                 System.out.println("Looser!");
             }
 
-            answer = askYesNo("Do you want to play again? (y/n)");
-
-        } while (answer.equalsIgnoreCase("y"));
+        } while (askYesNo("Do you want to play again? (y/n)"));
 
         System.out.println("Goodbye!");
     }
@@ -53,13 +50,14 @@ public class Main {
         }
     }
 
-    static String askYesNo(String msg) {
+    static boolean askYesNo(String msg) {
         while (true) {
             System.out.println(msg);
             String answer = scan.next();
-            if (answer.equalsIgnoreCase("y")
-                    || answer.equalsIgnoreCase("n")) {
-                return answer;
+            boolean isY = answer.equalsIgnoreCase("y");
+            boolean isN = answer.equalsIgnoreCase("n");
+            if (isY || isN) {
+                return isY;
             }
             System.out.println("Enter 'y' or 'n'");
         }
