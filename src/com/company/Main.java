@@ -18,8 +18,7 @@ public class Main {
             boolean userWon = false;
 
             for (int i = 0; i < 10; i++) {
-                System.out.println("Please, enter your guess:");
-                int userNum = scan.nextInt();
+                int userNum = askInt("Please, enter your guess:", 1, 100);
 
                 if (myNum > userNum) {
                     System.out.println("My number is greater than yours");
@@ -42,5 +41,16 @@ public class Main {
         } while (answer.equalsIgnoreCase("y"));
 
         System.out.println("Goodbye!");
+    }
+
+    static int askInt(String msg, int min, int max) {
+        while (true) {
+            System.out.println(msg);
+            int answer = scan.nextInt();
+            if (answer >= min && answer <= max) {
+                return answer;
+            }
+            System.out.printf("Please enter number from %d to %d\n", min, max);
+        }
     }
 }
