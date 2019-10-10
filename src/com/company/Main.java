@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,10 +9,12 @@ public class Main {
 
     static Random rand = new Random();
     static Scanner scan = new Scanner(System.in);
+    static ArrayList<String> users = new ArrayList<>();
 
     public static void main(String[] args) {
-
         do {
+            String userName = askString("Enter your name:");
+            users.add(userName);
             int myNum = rand.nextInt(100) + 1;
             System.out.println(myNum); // TODO remove this line once testing is finished
 
@@ -38,6 +41,11 @@ public class Main {
         } while (askYesNo("Do you want to play again? (y/n)"));
 
         System.out.println("Goodbye!");
+    }
+
+    private static String askString(String msg) {
+        System.out.println(msg);
+        return scan.next();
     }
 
     static int askInt(String msg, int min, int max) {
