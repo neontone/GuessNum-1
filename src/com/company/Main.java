@@ -6,10 +6,9 @@ public class Main {
 
     static Random rand = new Random();
     static Scanner scan = new Scanner(System.in);
-    static ArrayList<String> users = new ArrayList<>();
+    static ArrayList<GameResult> users = new ArrayList<>();
 
     public static void main(String[] args) {
-        int counter = 0;
         do {
             String userName = askString("Enter your name:");
 
@@ -19,17 +18,21 @@ public class Main {
             boolean userWon = false;
 
             for (int i = 0; i < 10; i++) {
+                double t1 = System.currentTimeMillis();
                 int userNum = askInt("Please, enter your guess:", 1, 100);
 
                 if (myNum > userNum) {
-                    counter+=1;
                     System.out.println("My number is greater than yours");
                 } else if (myNum < userNum) {
-                    counter+=1;
                     System.out.println("My number is less than yours");
                 } else {
+                    GameResult r = new GameResult();
+                    double t2 = System.currentTimeMillis();
+                    r.name = userName;
+                    r.triesCount = i +1;
+                    r.time = (t2 - t1) /1000;
+                    users.add(r);
                     System.out.println("Yeah! You won!");
-                    users.add(userName + ". Turns: " + counter);
                     userWon = true;
                     break;
                 }
@@ -41,10 +44,12 @@ public class Main {
 
         } while (askYesNo("Do you want to play again? (y/n)"));
 
-        Collections.sort(users, Collections.reverseOrder());
+        users.sort(Comparator.comparing(r -> r.triesCount).thenComparing()
+        }
 
-        for (String name : users) {
-            System.out.println(name);
+
+        for (GameResult result : users) {
+            System.out.printf("%s \t\t\t %d \t\t\t %.2f seconds\n", result.name, result.triesCount, result.time);
 
         }
 
