@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -12,9 +9,10 @@ public class Main {
     static ArrayList<String> users = new ArrayList<>();
 
     public static void main(String[] args) {
+        int counter = 0;
         do {
             String userName = askString("Enter your name:");
-            users.add(userName);
+
             int myNum = rand.nextInt(100) + 1;
             System.out.println(myNum); // TODO remove this line once testing is finished
 
@@ -24,11 +22,14 @@ public class Main {
                 int userNum = askInt("Please, enter your guess:", 1, 100);
 
                 if (myNum > userNum) {
+                    counter+=1;
                     System.out.println("My number is greater than yours");
                 } else if (myNum < userNum) {
+                    counter+=1;
                     System.out.println("My number is less than yours");
                 } else {
                     System.out.println("Yeah! You won!");
+                    users.add(userName + ". Turns: " + counter);
                     userWon = true;
                     break;
                 }
@@ -39,6 +40,13 @@ public class Main {
             }
 
         } while (askYesNo("Do you want to play again? (y/n)"));
+
+        Collections.sort(users, Collections.reverseOrder());
+
+        for (String name : users) {
+            System.out.println(name);
+
+        }
 
         System.out.println("Goodbye!");
     }
