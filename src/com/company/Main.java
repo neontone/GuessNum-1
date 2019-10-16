@@ -14,36 +14,52 @@ public class Main {
     public static void main(String[] args) {
         loadResults();
         do {
+
+
             String userName = askString("Enter your name:");
+            {
+                String space = " ";
 
-            int myNum = rand.nextInt(100) + 1;
-            System.out.println(myNum); // TODO remove this line once testing is finished
+                int count = 0;
 
-            boolean userWon = false;
-
-            for (int i = 0; i < 10; i++) {
-                long t1 = System.currentTimeMillis();
-                int userNum = askInt("Please, enter your guess:", 1, 100);
-
-                if (myNum > userNum) {
-                    System.out.println("My number is greater than yours");
-                } else if (myNum < userNum) {
-                    System.out.println("My number is less than yours");
-                } else {
-                    GameResult r = new GameResult();
-                    long t2 = System.currentTimeMillis();
-                    r.setName(userName);
-                    r.setTriesCount(i + 1);
-                    r.setTime(t2 - t1);
-                    leaderBoard.add(r);
-                    System.out.println("Yeah! You won!");
-                    userWon = true;
-                    break;
+                //Counts each character except space
+                for (int i = 0; i < userName.length(); i++) {
+                    if (userName.charAt(i) != ' ')
+                        count++;
                 }
-            }
 
-            if (!userWon) {
-                System.out.println("Loser!");
+                int myNum = rand.nextInt(100) + 1;
+                System.out.println(myNum); // TODO remove this line once testing is finished
+
+                boolean userWon = false;
+
+                for (int i = 0; i < 10; i++) {
+
+                    long t1 = System.currentTimeMillis();
+
+                    int userNum = askInt("Please, enter your guess:", 1, 100);
+
+                    if (myNum > userNum) {
+                        System.out.println("My number is greater than yours");
+                    } else if (myNum < userNum) {
+                        System.out.println("My number is less than yours");
+                    } else {
+                        GameResult r = new GameResult();
+                        long t2 = System.currentTimeMillis();
+                        r.setName(userName);
+                        r.setTriesCount(i + 1);
+                        r.setTime(t2 - t1);
+                        leaderBoard.add(r);
+                        System.out.println("Yeah! You won!");
+                        userWon = true;
+                        break;
+                    }
+                }
+
+
+                if (!userWon) {
+                    System.out.println("Loser!");
+                }
             }
 
         } while (askYesNo("Do you want to play again? (y/n)"));
